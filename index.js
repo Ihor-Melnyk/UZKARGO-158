@@ -1,3 +1,5 @@
+//перевикористати в іншій задачі
+
 //Скрипт 1. Зміна властивостей атрибутів полів карточки
 
 function setPropertyRequired(attributeName, boolValue = true) {
@@ -44,6 +46,14 @@ function DetermineResponsibleTask() {
 }
 
 function onTaskExecuteDetermineResponsible(routeStage) {
-  if (routeStage.executionResult == "executed") {
+  if (
+    routeStage.executionResult == "executed" &&
+    !EdocsApi.getAttributeValue("ResponsibleEmployee").value
+  ) {
+    throw `Внесіть значення в поле "Відповідальний працівник"`;
   }
+}
+
+function onCardInitialize() {
+  DetermineResponsibleTask();
 }
